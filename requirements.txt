@@ -1,0 +1,52 @@
+# Core Framework
+fastapi
+uvicorn[standard]
+pydantic
+pydantic-settings
+
+# Database
+sqlalchemy
+alembic
+psycopg2-binary
+
+# Task Queue
+celery
+redis
+
+# Email
+python-multipart
+aiosmtplib
+email-validator
+jinja2
+sendgrid
+
+# GitHub Integration
+PyGithub
+gitpython
+
+# Authentication & Security
+python-jose[cryptography]
+passlib[bcrypt]
+python-dotenv
+
+# HTTP Client
+httpx
+aiohttp
+
+# Utilities
+python-dateutil
+pytz
+
+# Testing
+pytest
+pytest-asyncio
+pytest-cov
+httpx
+
+# Monitoring & Logging
+python-json-logger
+
+# Development
+black
+flake8
+mypy
