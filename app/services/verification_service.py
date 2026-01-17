@@ -6,7 +6,7 @@ Combines data from multiple sources to determine if verification passed.
 """
 
 import logging
-from datetime import date, datetime
+from datetime import date, datetime, timezone
 from typing import Dict, Any, Optional
 
 from sqlalchemy.orm import Session
@@ -84,7 +84,7 @@ class VerificationService:
             daily_log.prs_count = activity["prs_count"]
             daily_log.issues_count = activity["issues_count"]
             daily_log.verification_details = activity
-            daily_log.verification_completed_at = datetime.utcnow()
+            daily_log.verification_completed_at = datetime.now(timezone.utc)
             
             # Determine if verification passed
             # Pass if there's at least one commit OR PR OR issue
@@ -162,7 +162,7 @@ class VerificationService:
                 # Update daily log
                 daily_log = DailyLog.get_by_date(self.db, user.id, target_date)
                 if daily_log:
-                    daily_log.summary_sent_at = datetime.utcnow()
+                    daily_log.summary_sent_at = datetime.now(timezone.utc)
                     self.db.commit()
                 
                 logger.info(f"Verification summary sent to {user.email}")

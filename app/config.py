@@ -34,7 +34,6 @@ class Settings(BaseSettings):
     database_url: str = Field(
         ...,
         description = "PostgreSQL Database URL",
-        env = "DATABASE_URL"
     )
 
     # SendGrid Email Settings
@@ -44,8 +43,8 @@ class Settings(BaseSettings):
     
     # Timezone Settings
     timezone: str = Field(
-        default="America/New_York",
-        description="Timezone for scheduling (e.g., America/New_York)"
+        default="West African Time (WAT)",
+        description="Timezone for scheduling"
     )
     
     # Webhook Settings

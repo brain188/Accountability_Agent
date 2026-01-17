@@ -116,7 +116,7 @@ class User(Base):
             "email": self.email,
             "github_username": self.github_username,
             "is_active": self.is_active,
-            "timezone": self.timezone,
+            "timezone": self.time_zone,
             "created_at": self.created_at.isoformat() if self.created_at else None,
             "updated_at": self.updated_at.isoformat() if self.updated_at else None,
         }

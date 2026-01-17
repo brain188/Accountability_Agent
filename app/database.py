@@ -29,7 +29,7 @@ engine = create_engine(
     max_overflow=10,
     pool_pre_ping=True,  # Verify connections before using
     pool_recycle=3600,   # Recycle connections after 1 hour
-    echo=settings.debug,  # Log SQL statements in debug mode
+    echo=settings.debug_mode,  # Log SQL statements in debug mode
 )
 
 

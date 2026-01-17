@@ -134,7 +134,7 @@ class GitHubService:
                         "sha": commit.sha,
                         "message": commit.commit.message,
                         "repository": repo.full_name,
-                        "date": commit.commit.author.date,
+                        "date": commit.commit.author.date.isoformat(),
                         "url": commit.html_url,
                         "author": commit.commit.author.name,
                     }
@@ -196,8 +196,8 @@ class GitHubService:
                                 "title": pr.title,
                                 "repository": repo.full_name,
                                 "state": pr.state,
-                                "created_at": pr.created_at,
-                                "updated_at": pr.updated_at,
+                                "created_at": pr.created_at.isoformat(),
+                                "updated_at": pr.updated_at.isoformat(),
                                 "url": pr.html_url,
                                 "author": pr.user.login,
                             }
@@ -267,8 +267,8 @@ class GitHubService:
                                 "title": issue.title,
                                 "repository": repo.full_name,
                                 "state": issue.state,
-                                "created_at": issue.created_at,
-                                "updated_at": issue.updated_at,
+                                "created_at": issue.created_at.isoformat(),
+                                "updated_at": issue.updated_at.isoformat(),
                                 "url": issue.html_url,
                                 "author": issue.user.login,
                             }

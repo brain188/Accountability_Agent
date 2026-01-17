@@ -6,7 +6,7 @@ Updates daily logs with user responses.
 """
 
 import logging
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict, Any
 
 from fastapi import APIRouter, Request, HTTPException, Depends, Header
@@ -109,7 +109,7 @@ async def handle_email_reply(
         
         # Update with user response
         daily_log.user_response = user_response.strip()
-        daily_log.user_responded_at = datetime.utcnow()
+        daily_log.user_responded_at = datetime.now(timezone.utc)
         
         db.commit()
         db.refresh(daily_log)
