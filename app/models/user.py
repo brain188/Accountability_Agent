@@ -67,7 +67,7 @@ class User(Base):
     # Timezone for scheduling
     time_zone = Column(
         String(50),
-        default="America/New_York",
+        default="Africa/Douala",
         nullable=False,
         comment="User's timezone for scheduling"
     )

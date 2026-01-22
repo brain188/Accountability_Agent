@@ -9,7 +9,7 @@ import logging
 from contextlib import contextmanager
 from typing import Generator
 
-from sqlalchemy import create_engine, event
+from sqlalchemy import create_engine, event, text
 from sqlalchemy.engine import Engine
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import declarative_base, sessionmaker, Session
@@ -29,7 +29,7 @@ engine = create_engine(
     max_overflow=10,
     pool_pre_ping=True,  # Verify connections before using
     pool_recycle=3600,   # Recycle connections after 1 hour
-    echo=settings.debug_mode,  # Log SQL statements in debug mode
+    echo=settings.debug,  # Log SQL statements in debug mode
 )
 
 
@@ -146,7 +146,7 @@ def test_connection() -> bool:
     """
     try:
         with engine.connect() as connection:
-            connection.execute("SELECT 1")
+            connection.execute(text("SELECT 1"))
         logger.info("Database connection successful")
         return True
     except SQLAlchemyError as e:

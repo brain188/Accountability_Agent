@@ -68,6 +68,11 @@ async def handle_email_reply(
     """
     try:
         # Parse JSON body
+
+        body = await request.body()
+        if not body:
+            raise HTTPException(status_code=400, detail="Missing request body")
+
         payload = await request.json()
         logger.info(f"Received email reply webhook: {payload.keys()}")
         
@@ -78,6 +83,8 @@ async def handle_email_reply(
         subject = payload.get("subject", "")
         text_content = payload.get("text", "")
         html_content = payload.get("html", "")
+
+        logger.info(f"Received email reply from {from_email} to {to_email}, subject: {subject}")
         
         # Use text content, fallback to HTML
         user_response = text_content if text_content else html_content
@@ -102,7 +109,7 @@ async def handle_email_reply(
             )
         
         # Get today's date in user's timezone
-        today = get_current_date(user.timezone)
+        today = get_current_date(user.time_zone)
         
         # Get or create daily log for today
         daily_log = DailyLog.get_or_create(db, user.id, today)

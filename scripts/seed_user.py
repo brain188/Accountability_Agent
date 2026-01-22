@@ -28,7 +28,7 @@ def seed_user(
     email: str,
     github_username: str,
     github_token: str,
-    timezone: str = None
+    time_zone: str = None
 ) -> bool:
     """
     Add a new user to the database.
@@ -42,8 +42,8 @@ def seed_user(
     Returns:
         True if successful, False otherwise
     """
-    if timezone is None:
-        timezone = settings.timezone
+    if time_zone is None:
+        time_zone = settings.timezone
     
     try:
         with get_db_context() as db:
@@ -57,7 +57,7 @@ def seed_user(
                 if update == 'y':
                     existing_user.github_username = github_username
                     existing_user.github_token = github_token
-                    existing_user.timezone = timezone
+                    existing_user.time_zone = time_zone
                     existing_user.is_active = True
                     db.commit()
                     logger.info(f"User updated: {email}")
@@ -70,7 +70,7 @@ def seed_user(
                 email=email,
                 github_username=github_username,
                 github_token=github_token,
-                timezone=timezone,
+                time_zone=time_zone,
                 is_active=True
             )
             
@@ -80,7 +80,7 @@ def seed_user(
             
             logger.info(f"User created successfully: {email}")
             logger.info(f"  - GitHub: {github_username}")
-            logger.info(f"  - Timezone: {timezone}")
+            logger.info(f"  - Timezone: {time_zone}")
             logger.info(f"  - User ID: {new_user.id}")
             
             return True
@@ -135,15 +135,15 @@ def interactive_seed():
         print("Error: GitHub token is required")
         return False
     
-    timezone = input(f"Timezone [{settings.timezone}]: ").strip()
-    if not timezone:
-        timezone = settings.timezone
-    
+    time_zone = input(f"Timezone [{settings.timezone}]: ").strip()
+    if not time_zone:
+        time_zone = settings.timezone
+
     print()
     print("Creating user with:")
     print(f"  - Email: {email}")
     print(f"  - GitHub: {github_username}")
-    print(f"  - Timezone: {timezone}")
+    print(f"  - Timezone: {time_zone}")
     print()
     
     confirm = input("Proceed? (y/n): ").strip().lower()
@@ -152,7 +152,7 @@ def interactive_seed():
         return False
     
     # Create user
-    success = seed_user(email, github_username, github_token, timezone)
+    success = seed_user(email, github_username, github_token, time_zone)
     
     if success:
         print()

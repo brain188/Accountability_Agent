@@ -65,7 +65,7 @@ def send_daily_checkins():
                     logger.info(f"Processing user: {user.email}")
                     
                     # Get user's current date (in their timezone)
-                    user_today = get_current_date(user.timezone)
+                    user_today = get_current_date(user.time_zone)
                     
                     # Get or create daily log for today
                     daily_log = DailyLog.get_or_create(db, user.id, user_today)

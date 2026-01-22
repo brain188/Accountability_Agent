@@ -52,12 +52,11 @@ class EmailService:
             True if successful, False otherwise
         """
         try:
-            # Create mail object
+            # Create mail empty object
             mail = Mail(
                 from_email=self.from_email,
                 to_emails=To(to_email),
-                subject=subject,
-                html_content=Content("text/html", html_content)
+                subject=subject
             )
             
             # Add plain text content if provided
@@ -66,6 +65,8 @@ class EmailService:
                     Content("text/plain", text_content),
                     Content("text/html", html_content)
                 ]
+            else:
+                mail.content = [Content("text/html", html_content)]    
             
             # Set reply-to
             mail.reply_to = Email(self.reply_to_email)
@@ -85,6 +86,10 @@ class EmailService:
                 
         except Exception as e:
             logger.error(f"Error sending email to {to_email}: {e}", exc_info=True)
+            if hasattr(e, 'body'):
+                logger.error(f"SendGrid error body: {e.body}")
+            if hasattr(e, 'to_dict'):
+                logger.error(f"SendGrid error details: {e.to_dict}")
             return False
     
     def send_daily_checkin(

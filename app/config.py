@@ -23,7 +23,7 @@ class Settings(BaseSettings):
     # Application Settings
     app_name: str = Field(default = "Personal AI Agent", description = "Application Name")
     app_version: str = Field(default = "1.0.0", description = "Application Version")
-    debug_mode: bool = Field(default = False, description = "Enable Debug Mode")
+    debug: bool = Field(default = False, description = "Enable Debug Mode")
     log_level: str = Field(default = "INFO", description = "Logging Level")
 
     # API Settings
@@ -43,7 +43,7 @@ class Settings(BaseSettings):
     
     # Timezone Settings
     timezone: str = Field(
-        default="West African Time (WAT)",
+        default="Africa/Douala",
         description="Timezone for scheduling"
     )
     
